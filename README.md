@@ -37,7 +37,7 @@ This method should only be run on the dataframe that has applied the above norma
 nrm.normHists(df, colName)
 ```
 
-### Histograms
+### Mean and Standard Deviation
 This method will return a mean and std dataframe for each column in columnsAnalyze, and limit it to first index elements of the dataFrame.
 
 ```

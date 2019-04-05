@@ -95,12 +95,14 @@ def normalizeProcedure(roi_df, unwantedCols=[], quiet=True):
 def normHists(df, col):
     return df[[col, "norm " + col, "z norm " + col]].hist(bins=1000,figsize=(20,10))
 
-def meanSTD(df, cols):
+def meanSTD(df, cols, index):  
     slideinfo = []
+    unwantedCols2=[]
     selectCols = cols
-    for slide in set([item[0:7] for item in list(df["ind cell"])]):
+    #edit the item index to change whether the binning occurs across areas or across slides [0:7]
+    for slide in set([item[0:index] for item in list(df["image "])]):
         for col in selectCols:
-            slidecol = df[df['ind cell'].str.contains(slide)][col]
-            slideinfo.append([slide, col, slidecol.mean(), slidecol.std()])
+           slidecol = df[df['image '].str.contains(slide)][col]
+           slideinfo.append([slide, col, slidecol.mean(), slidecol.std()])
     selectMeanSTD = pd.DataFrame(slideinfo, columns=['slide', 'col', 'mean', 'std'])
     return selectMeanSTD.sort_values("col")

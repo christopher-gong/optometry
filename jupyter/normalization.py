@@ -52,13 +52,13 @@ def normalize(col, table, cutoff=0.01):
             return normsignal
     return table[col].apply(new)
 
-def normalizeDAPI(roi_df):
+def normalizeDAPI(roi_df, cut=0.2):
     ''' normalizeDAPI fn.
     1. normalizes DAPI with the normalize fn of cutoff=0.01 (1% of the mass on left and 1% of mass on right).
-    2. removes all rows where the normalized DAPI is less than or equal to 0.2. '''
+    2. removes all rows where the normalized DAPI is less than or equal to cut (default 0.2). '''
     try:
         roi_df["norm DAPI"] = normalize("DAPI", roi_df)
-        dapi_rm_roi_df = roi_df[roi_df['norm DAPI'] > 0.2]
+        dapi_rm_roi_df = roi_df[roi_df['norm DAPI'] > cut]
         return dapi_rm_roi_df
     except:
         print("No DAPI found! DAPI normalization did not occur.")

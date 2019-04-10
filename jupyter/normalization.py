@@ -78,7 +78,7 @@ def normalizeProcedure(roi_df, unwantedCols=[], quiet=True):
     cols = list(dapi_rm_roi_df)
     selectedCols = [c for c in cols if c not in unwantedCols]
     for col in selectedCols:
-        if col.startswith("norm") or (dapi_rm_roi_df[col]).isna().any() or not isinstance(list(dapi_rm_roi_df[col])[0], numbers.Real):
+        if col.startswith("norm") or (dapi_rm_roi_df[col]).isna().any() or not isinstance(list(dapi_rm_roi_df[col])[0], numbers.Real) or "index" in col:
             if (not quiet):
                 print("Passed ", col)
             continue

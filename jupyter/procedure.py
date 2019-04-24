@@ -25,23 +25,9 @@ def colorCSV(labels, colors, csvLoc):
     df.to_csv(csvLoc, index=False, header=False)
     return df
 
-def procedure(roi_cluster_df, condition, outputCSV, colors=['#ff0000', '#ffa500', '#ffff00', '#00ff00', '#0000ff', '#551a8b', '#ffc0cb', '#8b4513', '#d3d3d3', '#000000', 'uh', 'oh', 'rip']):
-    #use condition
-    analysis = []
-    if condition == 1:
-        comp = 8
-        noanalysis = []
-    elif condition == 2:
-        comp = 8
-        noanalysis = ['Islet1']
-    elif condition == 3:
-        comp = 7
-        noanalysis = ['Islet1', 'CD15']
-    elif condition == 4:
-        comp = 3
-        analysis = ['Parv', 'Pax6']
-    else:
-        raise Exception('condition must be 1 through 4.')
+def procedure(roi_cluster_df, dropkeep, dkcols, comp, outputCSV, colors=['#ff0000', '#ffa500', '#ffff00', '#00ff00', '#0000ff', '#551a8b', '#ffc0cb', '#8b4513', '#d3d3d3', '#000000', 'uh', 'oh', 'rip']):
+    #drop is true, keep is false
+    assert dropkeep == 'drop' or dropkeep == 'keep', "dropkeep must be string drop or keep"
 
     roi_cluster_df = roi_cluster_df.copy() #creates new df
     colNames = roi_cluster_df.columns[roi_cluster_df.columns.str.contains(pat='z norm')] #keeps only znorm data
@@ -52,16 +38,16 @@ def procedure(roi_cluster_df, condition, outputCSV, colors=['#ff0000', '#ffa500'
     labelsPCA = []
 
     #use condition and drop/keep cols
-    if len(analysis) > 0:
+    if dropkeep == 'keep':
         z = []
         for col in list(roi_cluster_df):
-            for a in analysis:
+            for a in dkcols:
                 if a in col:
                     z += [col]
         roi_cluster_df = roi_cluster_df[z]
     else:
-        noanalysis += ['DAPI', 'Tarpg3', 'GLT-1', 'Cav3.1', 'Kv2.2', 'Area', 'Circ','AR','Round','Solidity','stddev', 'median']
-        for col in noanalysis:
+        dkcols += ['DAPI', 'Tarpg3', 'GLT-1', 'Cav3.1', 'Kv2.2', 'Area', 'Circ','AR','Round','Solidity','stddev', 'median']
+        for col in dkcols:
             roi_cluster_df = roi_cluster_df.drop(roi_cluster_df.columns[roi_cluster_df.columns.str.contains(pat=col)], axis=1)
 
     roi_cluster_array = roi_cluster_df.iloc[0:roi_cluster_df.shape[0], 0:roi_cluster_df.shape[1]].values

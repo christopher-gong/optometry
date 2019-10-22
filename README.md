@@ -59,7 +59,7 @@ Below is an example on how to use the normalization.py methods.
 
 These imports are necessary to run the methods.
 
-
+```
 import normalization as nrm
 import pandas as pd
 ```
@@ -90,4 +90,4 @@ mstd = nrm.meanSTD(df, columnsAnalyze, index)
 
 ## Authors
 
-* **Christopher Gong** - *Created and tested Normalization File*
+* **Christopher Gong** - *Created and tested Cluster, Combine, Normalization File*

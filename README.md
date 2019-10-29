@@ -8,9 +8,50 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You will need Python, and a copy of normalization.py in your local directory. 
+You will need Python, and a copy of normalization.py in your local directory.
 
-## Example Usage
+## Example Usage of combine.py
+
+Below is an example on how to use the combine.py methods.
+
+### Import combine and Pandas
+
+These imports are necessary to run the methods.
+
+```
+from importHelpers.combine import *
+import pandas as pd
+```
+
+### combine
+This method will normalize and run the PCA n times on the initial data frame passed in, and return a dataframe with the results combined.
+
+```
+df = combine(initial, 10)
+```
+
+## Example Usage of cluster.py
+
+Below is an example on how to use the cluster.py methods.
+
+### Import cluster and Pandas
+
+These imports are necessary to run the methods.
+
+```
+from importHelpers.cluster import *
+import pandas as pd
+```
+
+### cluster
+This method will cluster the initial dataframe passed into nc clusters, with a standard deviation threshold of std_thresh, and return 2 dataframes: one sorted by initial index, and the other sorted by cluster.
+
+```
+out_df, o_outdf = cluster(initial, nc = 7, std_thresh = 20, output = False)
+```
+### Running the Normalization Procedure
+
+## Example Usage of Normalization.py
 
 Below is an example on how to use the normalization.py methods.
 
@@ -49,4 +90,4 @@ mstd = nrm.meanSTD(df, columnsAnalyze, index)
 
 ## Authors
 
-* **Christopher Gong** - *Created and tested Normalization File*
+* **Christopher Gong** - *Created and tested Cluster, Combine, Normalization File*

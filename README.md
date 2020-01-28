@@ -1,4 +1,4 @@
-# Optometry - Normalization
+# Classification
 
 This repository performs the normalization techniques to prepare for different clustering algorithms to be applied. This project is a UC Berkeley Research Apprenticeship under Amanda McLaughlin in Puthussery & Taylor Labs. 
 
